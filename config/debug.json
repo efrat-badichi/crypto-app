@@ -1,6 +1,12 @@
 {
-    "app":
-    {
+    "app": {
         "port": 8080
+    },
+    "mysql":{
+        "host": "localhost",
+        "user": "username",
+        "password": "password",
+        "database": "mydb",
+        "port": 3306
     }
 }
