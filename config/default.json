@@ -8,5 +8,15 @@
         "password": "password",
         "database": "mydb",
         "port": 3306
+    },
+    "mongo": {
+        "host": "",
+        "port":111
+    },
+    "github":{
+        "clientID":"13f8a5f3c14c1f3ecf12",
+        "clientSecret": "1aaadbfcef029a8cacf257fc0ccf002f97acb2b8",
+        "callbackURL": "http://localhost:3000/github/callback"
+
     }
 }

@@ -1,3 +1,5 @@
+process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
+
 const express = require('express');
 const config = require("config"); 
 const path = require('path');
@@ -22,6 +24,23 @@ app.set('view engine', 'ejs');
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
+// declare socker server 
+const http = require('http');
+const { Server } = require('socket.io');
+const server = http.createServer(app);
+const io = new Server(server);
+
+io.on('connection', (socket) => {
+    console.log(`a user connected`);
+    socket.on('CurrencyUpdated', (msg) => {
+        io.emit('symbol value update', msg);
+    })
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
+    });
+});
+
+// config db
 app.use(mysql);
 
 app.use('/', guestsRoute);
@@ -31,6 +50,6 @@ app.use('/github', githubRoute);
 app.use(errorHandler);
 app.use(notFound);
 
-app.listen(port, () => {
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
